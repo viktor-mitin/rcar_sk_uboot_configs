@@ -1,0 +1,38 @@
+setenv baudrate 115200
+setenv boot_dev nfs
+setenv boot_from_memory booti 0x48080000 - 0x48000000
+setenv bootcmd run bootcmd_xen
+setenv bootcmd_xen run xen_load; run dtb_load; run kernel_load; run xenpolicy_load;  bootm 0x48080000 - 0x48000000
+
+
+setenv bootdelay 3
+setenv dtb_load tftp 0x48000000 dtb; run set_boot_dev
+setenv ethaaddr 2e:09:0a:02:f0:4d
+setenv ethact ravb
+setenv ethaddr 2e:09:0a:02:f0:4d
+setenv fdt_high 0xffffffffffffffff
+setenv fdtaddr 48000000
+
+setenv fileaddr 76000000
+setenv filesize dc77b8
+setenv initrd_high 0xffffffffffffffff
+setenv initrd_load tftp 0x76000000 initramfs
+setenv ipaddr 192.168.1.2
+setenv kernel_load tftp 0x7a000000 linux
+setenv load_dtb ext4load mmc 0:1 0x48000000 /boot/Image--4.9.0+git0+098ccf1c9b-r1-r8a7795-h3ulcb-20171003114345.dtb
+setenv load_ker ext4load mmc 0:1 0x48080000 /boot/Image-4.9.0-yocto-standard
+setenv load_kernel ext2load mmc 0:1 0x48080000 /boot/Image-4.9.0-yocto-standard
+
+
+
+
+
+setenv serverip 192.168.1.1
+setenv set_boot_dev fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device ${boot_dev}
+setenv stderr serial
+setenv stdin serial
+setenv stdout serial
+setenv ver U-Boot 2015.04 (Oct 24 2018 - 11:01:49)
+setenv xen_load tftp 0x48080000 xen
+setenv xenpolicy_load tftp 0x7c000000 policy
+

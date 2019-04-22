@@ -1,0 +1,42 @@
+ > printenv
+baudrate 115200
+boot_dev nfs
+boot_from_memory booti 0x48080000 - 0x48000000
+bootargs ignore_loglevel rw root /dev/nfs nfsroot 192.168.1.1:/srv/rcar-root,nfsvers 3 ip 192.168.1.2:192.168.1.1::255.255.255.0:h3ulcb
+bootcmd run bootcmd_3_15
+bootcmd_3_15 tftp 0x48080000 linux; tftp 0x48000000 dtb; booti 0x48080000 - 0x48000000
+bootcmd_xen run xen_load; run dtb_load; run kernel_load; run xenpolicy_load;  bootm 0x48080000 - 0x48000000
+bootcmd_xen_mmc0 run mmc0_xen_load; run mmc0_dtb_load; run mmc0_kernel_load; run mmc0_xenpolicy_load; run mmc0_initramfs_load; bootm 0x48080000 0x76000000 0x48000000
+bootdelay 3
+dtb_load tftp 0x48000000 dtb; run set_boot_dev
+ethaaddr 2e:09:0a:02:f0:4d
+ethact ravb
+ethaddr 2e:09:0a:02:f0:4d
+fdt_high 0xffffffffffffffff
+fdtaddr 48000000
+fdtcontroladdr 7fe07c88
+fileaddr 48000000
+filesize 1251d
+initrd_high 0xffffffffffffffff
+initrd_load tftp 0x76000000 initramfs
+ipaddr 192.168.1.2
+kernel_load tftp 0x7a000000 linux
+load_dtb ext4load mmc 0:1 0x48000000 /boot/Image--4.9.0+git0+098ccf1c9b-r1-r8a7795-h3ulcb-20171003114345.dtb
+load_ker ext4load mmc 0:1 0x48080000 /boot/Image-4.9.0-yocto-standard
+load_kernel ext2load mmc 0:1 0x48080000 /boot/Image-4.9.0-yocto-standard
+mmc0_dtb_load ext2load mmc 0:1 0x48000000 /boot/dom0.dtb; run set_boot_dev
+mmc0_initramfs_load ext2load mmc 0:1 0x76000000 /boot/uInitramfs
+mmc0_kernel_load ext2load mmc 0:1 0x7a000000 /boot/Image
+mmc0_xen_load ext2load mmc 0:1 0x48080000 /boot/xen-uImage
+mmc0_xenpolicy_load ext2load mmc 0:1 0x7c000000 /boot/xenpolicy
+serverip 192.168.1.1
+set_boot_dev fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device ${boot_dev}
+stderr serial@e6e88000
+stdin serial@e6e88000
+stdout serial@e6e88000
+ver U-Boot 2018.09 (Mar 25 2019 - 09:37:21 +0000)
+xen_load tftp 0x48080000 xen
+xenpolicy_load tftp 0x7c000000 policy
+
+Environment size: 1832/131068 bytes
+ >

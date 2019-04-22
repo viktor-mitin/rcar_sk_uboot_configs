@@ -1,0 +1,16 @@
+=> printenv
+baudrate=115200
+bootargs=rw root=/dev/sda1 rootwait
+bootcmd=i2c dev 5; i2c mw 3c 0 0; i2c mw 3c 0 2; mw.b 50001000 56; mw.b 50001001 00; i2c write 50001000 2d aa 2 -s; usb start; ext4load usb 0:1 0x48070000 /boot/firmware.img; ext4load usb 0:1 0x48080000 /boot/Image; ext4load usb 0:1 0x48000000 /boot/r8a7795-cetibox-h3ulcb-gweb-v2.dtb; booti 0x48080000 0x48070000 0x48000000
+bootdelay=2
+cetibox_id=0000042
+ethaddr=2E:09:0A:02:F2:9A
+fdt_high=0xffffffffffffffff
+fdtcontroladdr=7fe12810
+gweb_id=0000062
+initrd_high=0xffffffffffffffff
+starterkit_id=0002625
+stderr=serial@e6e88000
+stdin=serial@e6e88000
+stdout=serial@e6e88000
+ver=U-Boot 2018.05 (May 28 2018 - 16:01:13 +0000)

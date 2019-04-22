@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cp ~/Downloads/r8a7795-h3ulcb-xen.dts ~/w/rcar_h3_ubuntu1604_yocto/build/./tmp/work-shared/h3ulcb/kernel-source/arch/arm64/boot/dts/renesas/r8a7795-h3ulcb-xen.dts
+bitbake virtual/kernel
+
