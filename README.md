@@ -1,4 +1,4 @@
-# Rcar Starter Kit u-boot configurations
+# U-boot configurations
 
 This repository contains several u-boot configs
 ===
