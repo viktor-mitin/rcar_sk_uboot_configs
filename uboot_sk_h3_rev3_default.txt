@@ -1,0 +1,68 @@
+c@3489 ~ $ cu -l /dev/ttyUSB0 -s 115200
+Connected.
+[    0.000143] NOTICE:  BL2: R-Car H3 Initial Program Loader(CA57)
+[    0.004579] NOTICE:  BL2: Initial Program Loader(Rev.1.0.24)
+[    0.010199] NOTICE:  BL2: PRR is R-Car H3 Ver.3.0
+[    0.014867] NOTICE:  BL2: Board is Starter Kit Rev.1.0
+[    0.019980] NOTICE:  BL2: Boot device is HyperFlash(80MHz)
+[    0.025407] NOTICE:  BL2: LCM state is CM
+[    0.029447] NOTICE:  BL2: AVS setting succeeded. DVFS_SetVID=0x53
+[    0.035424] NOTICE:  BL2: CH0: 0x400000000 - 0x47fffffff, 2 GiB
+[    0.041285] NOTICE:  BL2: CH1: 0x500000000 - 0x57fffffff, 2 GiB
+[    0.047160] NOTICE:  BL2: CH2: 0x600000000 - 0x67fffffff, 2 GiB
+[    0.053035] NOTICE:  BL2: CH3: 0x700000000 - 0x77fffffff, 2 GiB
+[    0.058924] NOTICE:  BL2: DDR3200(rev.0.34)
+[    0.074376] NOTICE:  BL2: [COLD_BOOT]
+[    0.083308] NOTICE:  BL2: DRAM Split is 4ch(DDR f)
+[    0.086607] NOTICE:  BL2: QoS is default setting(rev.0.09)
+[    0.092050] NOTICE:  BL2: DRAM refresh interval 1.95 usec
+[    0.097471] NOTICE:  BL2: v1.5(release):3bea708
+[    0.101900] NOTICE:  BL2: Built : 01:27:37, Nov 12 2018
+[    0.107088] NOTICE:  BL2: Normal boot
+[    0.110733] NOTICE:  BL2: dst=0xe6322d00 src=0x8180000 len=512(0x200)
+[    0.117116] NOTICE:  BL2: dst=0x43f00000 src=0x8180400 len=6144(0x1800)
+[    0.123736] NOTICE:  BL2: dst=0x44000000 src=0x81c0000 len=65536(0x10000)
+[    0.130967] NOTICE:  BL2: dst=0x44100000 src=0x8200000 len=1048576(0x100000)
+[    0.145792] NOTICE:  BL2: dst=0x50000000 src=0x8640000 len=1048576(0x100000)
+[    0.159767] NOTICE:  BL2: Booting BL31
+
+
+U-Boot 2018.09 (Nov 12 2018 - 01:28:13 +0000)
+
+CPU: Renesas Electronics R8A7795 rev 3.0
+Model: Renesas H3ULCB board based on r8a7795 ES2.0+ with 8GiB (4 x 2 GiB)
+DRAM:  7.9 GiB
+Bank #0: 0x048000000 - 0x0bfffffff, 1.9 GiB
+Bank #1: 0x500000000 - 0x57fffffff, 2 GiB
+Bank #2: 0x600000000 - 0x67fffffff, 2 GiB
+Bank #3: 0x700000000 - 0x77fffffff, 2 GiB
+
+MMC:   sd@ee100000: 0, sd@ee140000: 1
+Loading Environment from MMC... OK
+In:    serial@e6e88000
+Out:   serial@e6e88000
+Err:   serial@e6e88000
+Net:   
+Error: ethernet@e6800000 address not set.
+eth-1: ethernet@e6800000
+Hit any key to stop autoboot:  0 
+=> 
+=> 
+=> printenv
+baudrate=115200
+bootargs=root=/dev/nfs rw nfsroot=192.168.0.1:/export/rfs ip=192.168.0.20
+bootcmd=tftp 0x48080000 Image; tftp 0x48000000 Image-r8a7795-h3ulcb-4x2g.dtb; booti 0x48080000 - 0x48000000
+bootdelay=2
+fdt_high=0xffffffffffffffff
+fdtcontroladdr=bfe08c88
+initrd_high=0xffffffffffffffff
+loadaddr=0x58000000
+stderr=serial@e6e88000
+stdin=serial@e6e88000
+stdout=serial@e6e88000
+usb_pgood_delay=2000
+ver=U-Boot 2018.09 (Nov 12 2018 - 01:28:13 +0000)
+
+Environment size: 452/131068 bytes
+=> 
+
