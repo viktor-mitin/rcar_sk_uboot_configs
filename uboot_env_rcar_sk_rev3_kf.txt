@@ -1,19 +1,28 @@
+bootargs=ignore_loglevel rw root=/dev/nfs nfsroot=192.168.0.1:/srv/rcar-root,nfsvers=3 ip=192.168.0.2:192.168.0.1::255.255.255.0:h3ulcb
+bootcmd=tftp 0x48080000 linux; tftp 0x48000000 dtb; booti 0x48080000 - 0x48000000
+serverip=192.168.0.1
+ipaddr=192.168.0.2
+
+
 baudrate=115200
-bootargs=root=/dev/nfs rw nfsroot=192.168.0.1:/export/rfs ip=192.168.0.20
-bootcmd=tftp 0x48080000 Image; tftp 0x48000000 Image-r8a7795-h3ulcb-4x2g.dtb; booti 0x48080000 - 0x48000000
+boot_dev=nfs
+bootargs_orig=root=/dev/nfs rw nfsroot=192.168.0.1:/export/rfs ip=192.168.0.20
 bootdelay=2
+dtb_load=tftp 0x48000000 dtb; run set_boot_dev
 ethact=ethernet@e6800000
 ethaddr=2e:09:0a:02:f0:4d
 fdt_high=0xffffffffffffffff
+fdtaddr=48000000
 fdtcontroladdr=bfdffc88
+fileaddr=7a000000
+filesize=12a4a00
 initrd_high=0xffffffffffffffff
-ipaddr=192.168.0.2
+kernel_load=tftp 0x7a000000 linux
 loadaddr=0x58000000
-serverip=192.168.0.1
+set_boot_dev=fdt addr 0x48000000; fdt resize; fdt mknode / boot_dev; fdt set /boot_dev device nfs
 stderr=serial@e6e88000
 stdin=serial@e6e88000
 stdout=serial@e6e88000
 usb_pgood_delay=2000
 ver=U-Boot 2018.09 (May 28 2019 - 15:51:59 +0000)
-
 
