@@ -1,0 +1,28 @@
+
+run bootcmd_xen_tftp
+ext2load mmc 0:1 0x60000000 /boot/uInitramfs; ext2load mmc 0:1 0x63000000 /boot/Image
+
+run mmc0_dtb_load
+
+fdt mknode /chosen domU1
+
+fdt set /chosen/domU1 compatible "xen,domain"
+fdt set /chosen/domU1 memory <0x0 0x40000>
+fdt set /chosen/domU1 cpus <1>
+fdt set /chosen/domU1 "#address-cells" <1>
+fdt set /chosen/domU1 "#size-cells" <1>
+
+fdt mknode /chosen/domU1 module@63000000
+fdt set /chosen/domU1/module@63000000 compatible "multiboot,kernel" "multiboot,module"
+fdt set /chosen/domU1/module@63000000 reg <0x63000000 0x00ffffff>
+fdt set /chosen/domU1/module@63000000 bootargs "console=dtuart dtuart=serial0"
+
+fdt mknode /chosen/domU1 module@60000000
+fdt set /chosen/domU1/module@60000000 compatible "multiboot,ramdisk" "multiboot,module"
+fdt set /chosen/domU1/module@60000000 reg <0x60000000 0x00ffffff>
+
+fdt print /chosen
+
+run mmc0_kernel_load; run mmc0_xenpolicy_load; run mmc0_initramfs_load; bootm 0x48080000 0x76000000 0x48000000
+
+
