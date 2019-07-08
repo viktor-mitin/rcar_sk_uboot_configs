@@ -19,24 +19,6 @@ expect =>
 send ext2load mmc 0:1 0x68000000 /r2
 expect =>
 
-#send "fdt set /chosen xen,dom0-bootargs \"console=hvc0 earlycon=xen earlyprintk=xen ignore_loglevel\""
-#expect =>
-
-#send fdt set /chosen bootargs earlycon=cdns,mmio,0xe6e88000,115200n8
-#expect =>
-#send fdt set /chosen stdout-path "serial0:115200ns"
-#expect =>
-
-
-#send fdt mknode /chosen dom0
-#expect =>
-#send fdt set /chosen/dom0 compatible "xen,linux-zimage", "xen,multiboot-module";
-#expect =>
-#send fdt set /chosen/dom0 reg = <0x0 0x400000 0x0 20971520>;
-#expect =>
-#send "fdt set /chosen/dom0 bootargs \"console=hvc0 earlycon=xen earlyprintk=xen\"";
-#expect =>
-
 send fdt mknode /chosen domU0
 expect =>
 send fdt set /chosen/domU0 compatible "xen,domain"
@@ -56,8 +38,6 @@ expect =>
 send fdt set /chosen/domU0 vpl011
 expect =>
 
-#send "fdt set /chosen/domU0/module@0x58000000 bootargs \"console=dtuart dtuart=serial0\""
-#send "fdt set /chosen/domU0/module@0x58000000 bootargs \"console=hvc0 ignore_loglevel\""
 send "fdt set /chosen/domU0/module@0x58000000 bootargs \"console=ttyAMA0,115200\""
 expect =>
 
