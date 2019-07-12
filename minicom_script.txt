@@ -11,8 +11,8 @@ expect =>
 #send ext2load mmc 0:1 0x58000000 /boot/Image
 #send ext2load mmc 0:1 0x58000000 /i2
 #send tftp 0x58000000 agl_kernel.img
-send tftp 0x58000000 linux
-#send tftp 0x58000000 Image-domU
+#send tftp 0x58000000 linux
+send tftp 0x58000000 Image-domU
 expect =>
 
 #send ext2load mmc 0:1 0x68000000 /boot/uInitramfs
@@ -21,18 +21,25 @@ expect =>
 
 send fdt mknode /chosen domU0
 expect =>
+
+send "fdt set /chosen/domU0 \"#address-cells\" <0x00000001>"
+expect =>
+send "fdt set /chosen/domU0 \"#size-cells\" <0x00000001>"
+expect =>
+
 send fdt set /chosen/domU0 compatible "xen,domain"
 expect =>
-send fdt set /chosen/domU0 memory <0x0 0x40000>
+send fdt set /chosen/domU0 memory <0x40000>
 expect =>
-send fdt set /chosen/domU0 cpus <1>
+send fdt set /chosen/domU0 cpus <4>
 expect =>
+
 
 send fdt mknode /chosen/domU0 module@0x58000000
 expect =>
 send fdt set /chosen/domU0/module@0x58000000 compatible "multiboot,kernel" "multiboot,module"
 expect =>
-send fdt set /chosen/domU0/module@0x58000000 reg <0x0 0x58000000 0x0 0x02000000>
+send fdt set /chosen/domU0/module@0x58000000 reg <0x58000000 0x02000000>
 expect =>
 
 send fdt set /chosen/domU0 vpl011
@@ -45,7 +52,7 @@ send fdt mknode /chosen/domU0 module@0x68000000
 expect =>
 send fdt set /chosen/domU0/module@0x68000000 compatible "multiboot,ramdisk" "multiboot,module"
 expect =>
-send fdt set /chosen/domU0/module@0x68000000 reg <0x0 0x68000000 0x0 0x016d9bb2>
+send fdt set /chosen/domU0/module@0x68000000 reg <0x68000000 0x016d9bb2>
 expect =>
 
 send fdt print /chosen
